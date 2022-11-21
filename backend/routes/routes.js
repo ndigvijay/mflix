@@ -23,8 +23,9 @@ var user
 
 router.post("/signup", async (req, res) => {
   user=await signup.find({email:req.body.email})
+  .then(console.log("Hello"))
   if(user.length==0) {
-    console.log("Hello")
+    // console.log("I love you")
     const signedUpUser = new signup({
       email: req.body.email,
       username:req.body.username,
@@ -38,6 +39,7 @@ router.post("/signup", async (req, res) => {
     console.log(signedUpUser);
   }
   else {
+    console.log("this should not come first!")
     res.send({message:"existing account"})
   }
 });
