@@ -7,5 +7,22 @@ a {
 }
 
 .contact_page {
+  background-color: rgb(0, 0, 0);
+  height: 75vh;
+  padding-top: 15vh;
+}
+
+.contact_table tr th ,.contact_table{
   background-color: black;
+}
+.contact_table {
+  margin: auto;
+}
+.contact_table tr th img {
+  width: 20%;
+}
+.contact_table tr td {
+  border-width: 0px;
+  border-color: black;
+  text-align: center;
 }
