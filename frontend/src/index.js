@@ -9,6 +9,7 @@ import Plans from "./Plans/Plans";
 import FAQpage from "./FAQpage/FAQpage";
 import Contact from "./Contact/Contact";
 import App from "./Movies/App.js";
+import Movies from "./Movies/movies.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Router>
@@ -20,7 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/plans" element={<Plans />} />
       <Route path="/FAQ" element={<FAQpage/>}/>
       <Route path="/Contact" element={<Contact/>}/>
-      <Route path="/Movies" element={<App/>}/>
+      <Route path="/Movies" element={<Movies/>}/>
     </Routes>
   </Router>
 );

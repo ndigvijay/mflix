@@ -2,32 +2,60 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import "./Login.css";
 import { useState } from "react";
-import axios from "axios";
-
 
 function Login() {
   const navigate = useNavigate();
+
   const navigateToSignUp = () => {
     navigate("/signup");
   };
+
   const navigateToForgotPassword = () => {
     navigate("/forgot");
   };
+
   const navigateToMovies = () => {
     navigate("/Movies");
-  }
-  const handleSubmit=(e)=>{
-    e.preventDefault()
-    axios.post("http://localhost:4000/app/login",{email:email,password:password})
-    .then((res)=>{
-      if(res.data.message==="true")
-          navigateToMovies()
-      else
-          alert("incorrect login credentials")
-    })
-  }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("https://mflix-backend.onrender.com/app/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.status===200) {
+        const data = await response.json();
+        // Assuming the server sends a token on successful login
+        if (data.token) {
+          // Store the token in localStorage
+          localStorage.setItem("token", data.token);
+          alert("login sucessful")
+          navigateToMovies();
+        } else {
+          alert("Incorrect login credentials");
+        }
+      } else if (response.status === 404) {
+        alert("User not found");
+      } else if (response.status === 401) {
+        alert("Incorrect login credentials");
+      } else {
+        alert("Something went wrong");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  };
+
   const [email, setEmail] = useState("");
-  const [password, setpassword] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <div id="login">
       <form onSubmit={handleSubmit}>
@@ -49,14 +77,16 @@ function Login() {
           required
           placeholder="Password"
           value={password}
-          onChange={(event) => setpassword(event.target.value)}
+          onChange={(event) => setPassword(event.target.value)}
         />
         <p className="invalid_password">Invalid Password</p>
-        <p className="forgot_password" onClick={navigateToForgotPassword}>
+        {/* <p className="forgot_password" onClick={navigateToForgotPassword}>
           Forgot Password ?
-        </p>
+        </p> */}
         <div className="button_container">
-          <button className="sign_in_button">Sign In</button>
+          <button className="sign_in_button" type="submit">
+            Sign In
+          </button>
           <p className="no_account">Don't have an account ?</p>
           <button className="sign_up_button" onClick={navigateToSignUp}>
             Sign Up
@@ -67,7 +97,7 @@ function Login() {
   );
 }
 
-export default function login() {
+export default function LoginWrapper() {
   return (
     <div>
       <Navbar />
