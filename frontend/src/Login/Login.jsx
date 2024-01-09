@@ -24,7 +24,6 @@ function Login() {
           navigateToMovies()
       else
           alert("incorrect login credentials")
-
     })
   }
   const [email, setEmail] = useState("");

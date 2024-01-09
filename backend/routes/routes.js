@@ -1,87 +1,63 @@
-const { application } = require("express");
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const signup = require("../models/users");
-let value=0;
-var user
+// const authMiddleware = require("../middleware/auth");
+require("dotenv").config()
 
-//  function run(username, password) {
-//   try {
-//     user = signup.find({ username:username});
-//     console.log(user)
-// }
-// catch (e) {
-//     console.log(e.message);
-// }
-//     if(user.username===username && user.password===password)
-//         return 1;
-//     else if(user.username==username && user.password!=password)
-//         console.log("invalid password")
-//     else if(user.username!=username)
-//         console.log("user not found")
-// }
+
 
 router.post("/signup", async (req, res) => {
-  user=await signup.find({email:req.body.email})
-  .then(console.log("Hello"))
-  if(user.length==0) {
-    // console.log("I love you")
-    const signedUpUser = new signup({
-      email: req.body.email,
-      username:req.body.username,
-      password: req.body.password,
-      confirm_password: req.body.confirm_password,
-    });
-    signedUpUser
-      .save()
-      .then((data) => res.json(data))
-      .catch((err) => console.log(err));
-    console.log(signedUpUser);
-  }
-  else {
-    console.log("this should not come first!")
-    res.send({message:"existing account"})
+  try {
+    const user = await signup.findOne({ email: req.body.email });
+
+    if (!user) {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+      const signedUpUser = new signup({
+        email: req.body.email,
+        username: req.body.username,
+        password: hashedPassword,
+      });
+
+      await signedUpUser.save();
+      res.status(200).send("User created successfully");
+    } else {
+      res.status(409).send({ message: "Existing account" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
   }
 });
 
 router.post("/login", async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  const { email, password } = req.body;
+
   try {
-        user =  await signup.find({email:email});
-          if(user.length==0)
-              res.send({message:"false"})
-          else if(user[0].password==password)
-              // res.send(user)
-              res.send({message:"true"})
-              // console.log(user) 
-          else
-          res.send({message:"false"})
+    const user = await signup.findOne({ email });
+
+    if (!user) {
+      return res.status(404).send("Incorrect login credentials");
     }
-    catch (e) {
-        console.log(e.message);
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (isPasswordValid) {
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "1h", // Token expires in 1 hour
+      });
+
+      res.status(200).json({ token });
+    } else {
+      res.status(401).send("Incorrect login credentials");
     }
-})
-
-router.get("/login",(req,res)=>{
-  res.send("login page")
-})
-//   console.log(username,password)
-
-
-  // run(username, password,value).then()
-  // console.log(user)
-
-//   if(res==1)
-//     res.send("welcome")
-//     else if(res==2)
-//     res.send("incorrect password")
-//     else if(res==3)
-//     res.send("user not found")
-// });
-
-
- 
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+});
 
 
 

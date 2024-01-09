@@ -7,14 +7,24 @@ const cors=require('cors')
 
 
 dotenv.config()
-mongoose.connect(process.env.DATABASE_URL,()=>console.log("database conected with ",process.env.DATABASE_URL))
+const mongoURI = process.env.DATABASE_URL;
 
-app.use(express.json())
+
+
+try {
+  mongoose.connect(mongoURI,{
+    useNewUrlParser:true,
+    useUnifiedTopology:true,
+  });
+  console.log("MongoDB connected successfully");
+} catch (error) {
+  console.error("Error connecting to MongoDB:",error);
+}
+
+
+app.use(express.json()) //built in body parser
 app.use(cors())
 app.use("/app",routes)
 
-app.get((req,res)=>{
-    res.render("index")
-})
 
 app.listen(4000,()=>console.log("server is running"))

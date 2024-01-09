@@ -72,6 +72,7 @@ function CreateAcc() {
             value={username}
             onChange={(event) => setUsername(event.target.value)}
           />
+          {/* {username} */}
           <br />
           <input
             type="password"
