@@ -6,7 +6,7 @@
 .welcome p {
   font-size: 30px;
   color: white;
-  background-color: rgba(0, 0, 0, 0.69);
+  /* background-color: rgba(0, 0, 0, 0.69); */
   width: fit-content;
 }
 
