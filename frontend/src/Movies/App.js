@@ -12,7 +12,7 @@ const App = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    searchMovies();
+    searchMovies("spiderman");
   }, []);
 
   const searchMovies = async (title) => {
