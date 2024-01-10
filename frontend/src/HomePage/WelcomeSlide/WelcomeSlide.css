@@ -1,23 +1,29 @@
-.welcome img {
-  width: 100vw;
-  opacity: 50%;
+.welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../../images/netflix_bg_2.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 760px;
+  position: relative;
+}
+
+.welcome center {
+  height: 100%;
+  padding-top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .welcome p {
-  font-size: 30px;
+  font-size: 20px;
   color: white;
-  /* background-color: rgba(0, 0, 0, 0.69); */
-  width: fit-content;
-}
-
-.welcome input {
-  width: 400px;
-  height: 60px;
-  padding: 0px 20px;
-  border-radius: 10px 0 0 10px;
-  font-size: large;
-  background-color: rgb(236, 162, 255);
-  border-width: 0px;
+  width: 80%;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 #welcome_button {
@@ -26,21 +32,8 @@
   color: white;
   font-size: large;
   width: 130px;
-  margin-left: 0px;
   height: 60px;
   border-radius: 20px;
   border-width: 0px;
-}
-
-.welcome {
-  background-image: url("../../images/netflix_bg_2.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 760px;
-}
-.welcome center {
-  background-color: rgba(47, 5, 75, 0.6);
-  height: 760px;
-  padding-top: 200px;
+  margin-bottom: 20px; /* Add margin-bottom for spacing */
 }

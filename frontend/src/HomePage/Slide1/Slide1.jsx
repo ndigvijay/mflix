@@ -1,5 +1,6 @@
 import "./Slide1.css";
 import netflix_children_profiles from "../../images/netflix_children_profiles.png";
+
 export default function Slide1() {
   return (
     <div className="slide1">

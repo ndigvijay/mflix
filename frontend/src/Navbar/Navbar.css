@@ -1,20 +1,24 @@
 #navbar {
-    background-color: #222222;
-    height: 10vh;
-  }
-  #navbar img {
-    height: 9vh;
-  }
-  #navbar button {
-    cursor: pointer;
-    background-color: rgba(134, 206, 211, 0.801);
-    color: white;
-    width: 100px;
-    height: 6vh;
-    border-radius: 5px;
-    position: absolute;
-    font-size: large;
-    border-width: 1px;
-    right: 2vh;
-    top: 2vh;
-  }
+  background-color: #222222;
+  height: 10vh;
+  position: relative; /* Change position to relative */
+}
+
+#navbar img {
+  height: 9vh;
+}
+
+#navbar button {
+  cursor: pointer;
+  background-color: rgba(134, 206, 211, 0.801);
+  color: white;
+  width: 100px;
+  height: 6vh;
+  border-radius: 5px;
+  font-size: large;
+  border-width: 1px;
+  margin-top: 2vh; /* Adjust margin instead of absolute positioning */
+  margin-right: 2vh; /* Adjust margin instead of absolute positioning */
+  position: absolute; /* Keep this if you want the button to be absolutely positioned */
+  right: 0; /* Adjust right positioning */
+}

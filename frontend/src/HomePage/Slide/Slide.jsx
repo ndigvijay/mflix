@@ -1,5 +1,6 @@
 import "./Slide.css";
 import netflix_on_tv from "../../images/netflix_on_tv.gif";
+
 export default function Slide() {
   return (
     <div className="slide">
