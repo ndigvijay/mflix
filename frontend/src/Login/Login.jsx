@@ -22,7 +22,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://mflix-backend.onrender.com/app/login", {
+      const response = await fetch("https://mflix-backend.vercel.app/app/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -32,7 +32,7 @@ function CreateAcc() {
       };
 
       try {
-        const response = await fetch("https://mflix-backend.onrender.com/app/signup", {
+        const response = await fetch("https://mflix-backend.vercel.app/app/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
